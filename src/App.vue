@@ -1,32 +1,48 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+import Login from "./views/Login.vue"
+
+export default {
+  name: "Login",
+  components: {
+    Login,
+  },
+   data() {
+      const item = {
+        date: '2016-05-02',
+        name: 'HQH',
+        address: '上海市普陀区金沙江路 1518 弄'
+      };
+      return {
+        tableData: Array(20).fill(item)
+      }
+    }
+};
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top: 60px;
 }
 
-#nav {
-  padding: 30px;
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.el-aside {
+  color: #333;
 }
 </style>

@@ -1,11 +1,15 @@
 <template>
   <div>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="uid" label="UID" width="150">
+      <el-table-column fixed prop="pid" label="pid" width="100">
       </el-table-column>
-      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-      <el-table-column prop="pwd" label="密码" width="120"> </el-table-column>
-
+      <el-table-column prop="pname" label="商品名" width="120"> </el-table-column>
+      <el-table-column prop="descibe" label="描述" width="480"> </el-table-column>
+      <el-table-column prop="salerid" label="售卖者" width="70"> </el-table-column>
+      <el-table-column prop="price" label="价格" width="70"> </el-table-column>
+      <el-table-column prop="oldprice" label="原价" width="70"> </el-table-column>
+      <el-table-column prop="cid2" label="分类id" width="70"> </el-table-column>
+      <el-table-column prop="state" label="状态id" width="70"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="editdata(scope.row)" type="text" size="small"
@@ -40,9 +44,9 @@ export default {
     editdata(row) {
       console.log(row);
       this.$router.push({
-        path: "/UserUpdate",
+        path: "/ProductUpdate",
         query: {
-          id: row.uid,
+          id: row.pid,
         },
       });
     },
@@ -50,9 +54,9 @@ export default {
     deletedata(row) {
       const _this = this;
       axios
-        .get("http://localhost:8089/userDeleteById/" + row.uid)
+        .get("http://localhost:8089/pdb/" + row.pid)
         .then((resp) => {
-          _this.$alert("《" + row.name + "》删除成功", "消息", {
+          _this.$alert("《" + row.pname + "》删除成功", "消息", {
             confirmButtonText: "确定",
             callback: (action) => {
               window.location.reload();
@@ -66,7 +70,7 @@ export default {
     // }
     page(currentPage) {
       axios
-        .get("http://localhost:8089/page/" + currentPage + "/5")
+        .get("http://localhost:8089/productPage/" + currentPage + "/5")
         .then((resp) => {
           console.log(resp);
           this.tableData = resp.data;
@@ -82,7 +86,7 @@ export default {
     // })
 
     //带箭头函数写法
-    axios.get("http://localhost:8089/page/1/5").then((resp) => {
+    axios.get("http://localhost:8089/productPage/1/5").then((resp) => {
       console.log(resp);
       this.tableData = resp.data;
     });

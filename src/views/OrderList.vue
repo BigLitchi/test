@@ -1,16 +1,21 @@
 <template>
   <div>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="uid" label="UID" width="150">
+      <el-table-column fixed prop="oid" label="订单ID" width="50">
       </el-table-column>
-      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-      <el-table-column prop="pwd" label="密码" width="120"> </el-table-column>
-
+      <el-table-column prop="pid" label="商品ID" width="48"> </el-table-column>
+      <el-table-column prop="pname" label="商品名" width="120"> </el-table-column>
+      <el-table-column prop="buyerid" label="购买者" width="70"> </el-table-column>
+      <el-table-column prop="salerid" label="售卖者" width="70"> </el-table-column>
+      <el-table-column prop="recename" label="收货人" width="70"> </el-table-column>
+      <el-table-column prop="tel" label="收货电话" width="115"> </el-table-column>
+      <el-table-column prop="receadre" label="收货地址" width="200"> </el-table-column>
+      <el-table-column prop="state" label="状态" width="70"> </el-table-column>
+      <el-table-column prop="transportid" label="物流订单号" width="135"> </el-table-column>
+      <el-table-column prop="orderdate" label="下单日期" width="160"> </el-table-column>
+      <el-table-column prop="allprice" label="价钱" width="70"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button @click="editdata(scope.row)" type="text" size="small"
-            >修改</el-button
-          >
           <el-button @click="deletedata(scope.row)" type="text" size="small"
             >删除</el-button
           >
@@ -50,9 +55,9 @@ export default {
     deletedata(row) {
       const _this = this;
       axios
-        .get("http://localhost:8089/userDeleteById/" + row.uid)
+        .get("http://localhost:8089/orderDeleteById/" + row.oid)
         .then((resp) => {
-          _this.$alert("《" + row.name + "》删除成功", "消息", {
+          _this.$alert("《" + row.oid + "》删除成功", "消息", {
             confirmButtonText: "确定",
             callback: (action) => {
               window.location.reload();
@@ -66,7 +71,7 @@ export default {
     // }
     page(currentPage) {
       axios
-        .get("http://localhost:8089/page/" + currentPage + "/5")
+        .get("http://localhost:8089/orderListPage/" + currentPage + "/5")
         .then((resp) => {
           console.log(resp);
           this.tableData = resp.data;
@@ -82,7 +87,7 @@ export default {
     // })
 
     //带箭头函数写法
-    axios.get("http://localhost:8089/page/1/5").then((resp) => {
+    axios.get("http://localhost:8089/orderListPage/1/5").then((resp) => {
       console.log(resp);
       this.tableData = resp.data;
     });
